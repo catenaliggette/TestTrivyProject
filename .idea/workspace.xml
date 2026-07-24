@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e3158e0b-0420-42b3-be28-20fe59aa0e1c" name="Changes" comment="a">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/build.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +17,9 @@
       <list>
         <option value="CSS File" />
         <option value="Python Script" />
-        <option value="HTML File" />
         <option value="Dockerfile" />
+        <option value="HTTP Request" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -113,7 +114,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784880315188</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="a">
+      <option name="closed" value="true" />
+      <created>1784880790819</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1784880790819</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
