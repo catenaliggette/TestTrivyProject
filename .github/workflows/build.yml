@@ -22,7 +22,7 @@ jobs:
           pip install pytest
       - name: Run tests
         run: |
-          pytest
+          PYTHONPATH=. pytest
   sonarqube:
     name: SonarQube
     runs-on: ubuntu-latest
