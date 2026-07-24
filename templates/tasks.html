@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>Task List</h2>
+
+{% if tasks %}
+
+    {% for task in tasks %}
+
+        <div class="task">
+
+            <h3>{{ task.title }}</h3>
+
+            <p>{{ task.description }}</p>
+
+            {% if task.completed %}
+
+                <p class="done">
+
+                    ✔ Completed
+
+                </p>
+
+            {% else %}
+
+                <a href="/complete/{{ task.id }}">
+
+                    Mark as completed
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+<p>No tasks available.</p>
+
+{% endif %}
+
+{% endblock %}
