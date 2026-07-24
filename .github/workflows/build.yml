@@ -36,18 +36,27 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   docker:
-
     name: Build Docker Image
-
     runs-on: ubuntu-latest
-
-
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
-
-
       - name: Build Docker image
         run: |
           docker build -t testtrivyproject .
+
+      - name: Scan Docker image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: testtrivyproject:latest
+          format: 'table'
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+
+      - name: Scan Docker configuration
+        uses: aquasecurity/trivy-action@master
+
+        with:
+          scan-type: config
+          scan-ref: .
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+          exit-code: 0
