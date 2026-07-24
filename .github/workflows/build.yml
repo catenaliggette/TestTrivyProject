@@ -60,3 +60,21 @@ jobs:
           scan-ref: .
           severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
           exit-code: 0
+
+      - name: Run Docker container
+        run: |
+          docker run -d \
+          -p 5000:5000 \
+          --name test-container \
+          testtrivyproject
+
+
+      - name: Test running container
+        run: |
+          sleep 5
+          curl http://localhost:5000
+
+
+      - name: Stop container
+        run: |
+          docker stop test-container
