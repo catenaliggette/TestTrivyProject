@@ -5,14 +5,14 @@ app = Flask(__name__)
 tasks = [
     {
         "id": 1,
-        "title": "Learn Docker",
-        "description": "Understand Docker images and containers.",
+        "title": "Aaaaaa",
+        "description": "dwdwai dwajadwo wdahuo",
         "completed": False
     },
     {
         "id": 2,
-        "title": "Learn Trivy",
-        "description": "Scan Docker images.",
+        "title": "Bbbbbbb",
+        "description": "dawjiowd wadoidwau h",
         "completed": True
     }
 ]
@@ -67,4 +67,8 @@ def about():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=True
+    )
