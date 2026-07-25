@@ -5,6 +5,12 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  packages: write
+
+
 jobs:
   tests:
     name: Run Python Tests
@@ -38,43 +44,63 @@ jobs:
   docker:
     name: Build Docker Image
     runs-on: ubuntu-latest
+    needs: [tests, sonarqube]
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+
       - name: Build Docker image
         run: |
-          docker build -t testtrivyproject .
+          docker build -t ghcr.io/catenaliggette/testtrivyproject:latest .
+
 
       - name: Scan Docker image
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: testtrivyproject:latest
-          format: 'table'
+          image-ref: ghcr.io/catenaliggette/testtrivyproject:latest
+          format: table
           severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+          exit-code: 0
+
 
       - name: Scan Docker configuration
         uses: aquasecurity/trivy-action@master
-
         with:
           scan-type: config
           scan-ref: .
           severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
           exit-code: 0
 
+
       - name: Run Docker container
         run: |
           docker run -d \
           -p 5000:5000 \
           --name test-container \
-          testtrivyproject
+          ghcr.io/catenaliggette/testtrivyproject:latest
 
 
       - name: Test running container
         run: |
           sleep 5
-          curl http://localhost:5000
+          curl --fail http://localhost:5000
 
 
       - name: Stop container
         run: |
           docker stop test-container
+
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/catenaliggette/testtrivyproject:latest
